@@ -13,7 +13,11 @@ services:
         volumes: 
         - ./ssserver.json:/etc/ssserver.json
     kcptun:
-        command: ["server_linux_amd64", "-c", "/etc/kcptun.json"]
+        command: [
+            "server_linux_amd64",
+            "-c", "/etc/kcptun.json",
+            # "--log", "/var/log/kcptun.log"
+        ]
         container_name: dc-kcptun-server
         depends_on:
         - ssserver
