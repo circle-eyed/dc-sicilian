@@ -10,6 +10,5 @@
     "datashard": 10,
     "parityshard": 3,
     "dscp": 0,
-    "nocomp": false,
-    "log": "/var/log/kcptun.log"
+    "nocomp": false
 }
