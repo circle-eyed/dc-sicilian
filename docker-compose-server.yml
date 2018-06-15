@@ -1,7 +1,7 @@
 version: "3"
 services:
     ssserver:
-        command: ["ssserver", "-c", "/etc/shadowsocks.json"]
+        command: ["ssserver", "-c", "/etc/ssserver.json"]
         container_name: dc-ssserver
         image: cyclopszhao/shadowsocks:latest
         networks:
@@ -11,7 +11,7 @@ services:
         restart: on-failure
         tty: true
         volumes: 
-        - ./ssserver.json:/etc/shadowsocks.json
+        - ./ssserver.json:/etc/ssserver.json
     kcptun:
         command: ["server_linux_amd64", "-c", "/etc/kcptun.json"]
         container_name: dc-kcptun-server

@@ -1,0 +1,72 @@
+version: '3'    
+services:                                                 
+    sslocal:
+        command: ["sslocal", "-c", "/etc/sslocal.json"]                            
+        container_name: dc-sslocal
+        image: cyclopszhao/shadowsocks:latest
+        networks:
+            - gfw-wtf
+        ports:                          
+            - 1080:1080    
+        restart: on-failure
+        tty: true
+        volumes:                                   
+            - ./sslocal.json:/etc/sslocal.json
+    privoxy-sslocal:
+        command: ["privoxy", "--no-daemon", "/etc/privoxy/config"]
+        container_name: dc-privoxy-sslocal
+        depends_on:
+            - sslocal                    
+        image: cyclopszhao/privoxy:latest
+        networks:
+            - gfw-wtf
+        ports:      
+            - 8118:8118                      
+        restart: on-failure
+        tty: true      
+        volumes:           
+            - ./privoxy-sslocal.config:/etc/privoxy/config
+
+    kcptun:
+        command: ["client_linux_amd64", "-c", "/etc/kcptun.json"]
+        container_name: dc-kcptun
+        image: cyclopszhao/kcptun:latest
+        networks:
+            - gfw-wtf
+        restart: on-failure
+        tty: true
+        volumes:
+            - ./kcptun-client.json:/etc/kcptun.json
+    sslocal-kcptun:
+        command: ["sslocal", "-c", "/etc/sslocal.json"]
+        container_name: dc-sslocal-kcptun
+        depends_on:
+            - kcptun
+        image: cyclopszhao/shadowsocks:latest
+        networks:
+            - gfw-wtf
+        ports:
+            - 1081:1080
+        restart: on-failure
+        tty: true
+        volumes:
+            - ./sslocal-kcptun.json:/etc/sslocal.json
+    privoxy-sslocal-kcptun:
+        command: ["privoxy", "--no-daemon", "/etc/privoxy/config"]
+        container_name: dc-privoxy-sslocal-kcptun
+        depends_on:
+            - sslocal-kcptun
+        image: cyclopszhao/privoxy:latest
+        networks:
+            - gfw-wtf
+        ports:
+            - 8119:8118
+        restart: on-failure
+        tty: true
+        volumes:
+            - ./privoxy-sslocal.config:/etc/privoxy/config
+
+networks:
+    gfw-wtf:
+        driver: bridge
+
