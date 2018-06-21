@@ -7,29 +7,25 @@ services:
         networks:
             - gfw-wtf
         ports:
-        - 8388:8388
+            - 8388:8388
         restart: on-failure
         tty: true
         volumes: 
-        - ./ssserver.json:/etc/ssserver.json
+            - ./ssserver.json:/etc/ssserver.json
     kcptun:
-        command: [
-            "server_linux_amd64",
-            "-c", "/etc/kcptun.json",
-            # "--log", "/var/log/kcptun.log"
-        ]
+        command: ["server_linux_amd64", "-c", "/etc/kcptun.json"]
         container_name: dc-kcptun-server
         depends_on:
-        - ssserver
+            - ssserver
         image: cyclopszhao/kcptun:latest
         networks:
             - gfw-wtf
         ports:
-        - 29900:29900/udp
+            - 29900:29900/udp
         restart: on-failure
         tty: true
         volumes:
-        - ./kcptun-server.json:/etc/kcptun.json
+             - ./kcptun-server.json:/etc/kcptun.json
 
 networks:
     gfw-wtf:
