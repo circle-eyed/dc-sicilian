@@ -1,6 +1,6 @@
 {
-    "listen": "0.0.0.0:29900",
-    "target": "ssserver:8388",
+    "remoteaddr": "my_server_ip:29900",
+    "localaddr": "0.0.0.0:12948",
     "key": "it's a secret",
     "crypt": "aes",
     "mode": "fast",

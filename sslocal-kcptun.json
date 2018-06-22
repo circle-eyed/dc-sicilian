@@ -1,7 +1,7 @@
 {
     "server": "kcptun",
-    "server_port": 29900,
-    "local_address": "127.0.0.1",
+    "server_port": 12948,
+    "local_address": "0.0.0.0",
     "local_port": 1080,
     "password": "my password",
     "timeout": 300,
