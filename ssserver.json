@@ -4,6 +4,6 @@
         "8388":"my password"
     },
     "timeout": 300,
-    "method" :"aes-256-cfb",
-    "fast_open": false
+    "method" :"aes-256-gcm",
+    "fast_open": true
 }
